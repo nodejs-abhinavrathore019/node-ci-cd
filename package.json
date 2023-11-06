@@ -1,0 +1,30 @@
+{
+  "name": "nodejs-ci-cd",
+  "version": "1.0.0",
+  "description": "ci/cd implementation using github actions, circle-ci and jenkins",
+  "main": "dist/app.js",
+  "scripts": {
+    "install-1": "npm install --prefix 1-ssl-tls",
+    "install-2": "npm install --prefix 2-cluster",
+    "install-3": "npm install --prefix 3-pm2",
+    "install-all": "npm run install-1 && npm run install-2 && npm run install-3",
+    "dev-1": "npm run dev --prefix 1-github",
+    "dev-2": "npm run dev --prefix 2-circle-ci",
+    "dev-3": "npm run dev --prefix 3-jenkins",
+    "prod-1": "npm run prod --prefix 1-github",
+    "prod-2": "npm run prod --prefix 2-circle-ci",
+    "prod-3": "npm run prod --prefix 3-jenkins"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [
+    "express",
+    "nodejs"
+  ],
+  "author": "deltacap019",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {}
+}
