@@ -19,32 +19,39 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{matrix.node_version}}
-      - name: "sssss"
-        uses: ./.github/workflows/setup.yml
-        with:
-          node_version: ${{matrix.node_version}}
-          os: ${{matrix.os}}
+      - name: Install packages
+        run: npm run install-1
     # uses: ./.github/workflows/setup.yml
     # with:
     #   node_version: ${{matrix.node_version}}
     #   os: ${{matrix.os}}
-  job-build-project:
-    strategy:
-      matrix:
-        node_version: [19.x, 20.x]
-        os: [macos-latest, windows-latest]
-    needs: job-setup-project
-    uses: ./.github/workflows/build.yml
-    with:
-      node_version: ${{matrix.node_version}}
-      os: ${{matrix.os}}
+  #   job-build-project:
+  #     strategy:
+  #       matrix:
+  #         node_version: [19.x, 20.x]
+  #         os: [macos-latest, windows-latest]
+  #     needs: job-setup-project
+  #     uses: ./.github/workflows/build.yml
+  #     with:
+  #       node_version: ${{matrix.node_version}}
+  #       os: ${{matrix.os}}
   job-deploy-project:
     strategy:
       matrix:
         node_version: [19.x, 20.x]
         os: [macos-latest, windows-latest]
-    needs: job-build-project
+    needs: job-setup-project
     runs-on: ${{matrix.os}}
     steps:
+      - name: WORKSPACE
+        run: echo ${{github.workspace}}
+      - name: Go To 1-github
+        run: cd './1-github'
+      - name: WORKSPACE
+        run: echo ${{github.workspace}}
+      - name: Lint Fix
+        run: npm run lint:fix
+      - name: Lint Check
+        run: npm run lint:check
       - name: Go To 1-github directory
         run: echo "deploy"
