@@ -22,9 +22,11 @@ jobs:
       - name: Install packages
         run: npm run install-1
       - name: WORKSPACE
-        run: ${{github.workspace}}
+        run: echo ${{github.workspace}}
       - name: Go To 1-github
         run: cd './1-github'
+      - name: WORKSPACE
+        run: echo ${{github.ref_name}}
       - name: Lint Fix
         run: npm run lint:fix
       - name: Lint Check
