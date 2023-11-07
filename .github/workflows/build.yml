@@ -1,25 +1,18 @@
 # run lint, test cases and build the project
 name: CI-CD Github Actions Build Project
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+  workflow_call:
+    inputs:
+      os:
+        type: string
+        required: true
+      node_version:
+        type: string
+        required: true
 jobs:
   lint-project:
-    strategy:
-      matrix:
-        node_version: [19.x, 20.x]
-        os: [macos-latest, windows-latest]
-    runs-on: ${{matrix.os}}
+    runs-on: ${{inputs.os}}
     steps:
-      - name: Checkout using actions/checkout@v4
-        uses: actions/checkout@v4
-      - name: SET UP PROJECT
-        uses: ./.github/workflows/setup.yml
-        with:
-          node_version: ${{matrix.node_version}}
-          os: ${{matrix.os}}
       - name: Go To 1-github
         run: cd './1-github'
       - name: Lint Fix

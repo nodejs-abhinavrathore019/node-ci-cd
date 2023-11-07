@@ -1,0 +1,37 @@
+# creates release tags after successful build for now.
+name: CI-CD Github Actions Deploy Project
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  job-setup-project:
+    strategy:
+      matrix:
+        node_version: [19.x, 20.x]
+        os: [macos-latest, windows-latest]
+    uses: ./.github/workflows/setup.yml
+    with:
+      node_version: ${{matrix.node_version}}
+      os: ${{matrix.os}}
+  job-build-project:
+    strategy:
+      matrix:
+        node_version: [19.x, 20.x]
+        os: [macos-latest, windows-latest]
+    needs: job-setup-project
+    uses: ./.github/workflows/build.yml
+    with:
+      node_version: ${{matrix.node_version}}
+      os: ${{matrix.os}}
+  job-deploy-project:
+    strategy:
+      matrix:
+        node_version: [19.x, 20.x]
+        os: [macos-latest, windows-latest]
+    needs: job-build-project
+    runs-on: ${{matrix.os}}
+    steps:
+      - name: Go To 1-github directory
+        run: echo "deploy"
