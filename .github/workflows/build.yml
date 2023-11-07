@@ -6,16 +6,18 @@ on:
   pull_request:
     branches: [main]
 jobs:
-  setup-project:
-    uses: ./.github/workflows/setup.yml
   lint-project:
-    needs: setup-project
     strategy:
       matrix:
         node_version: [19.x, 20.x]
         os: [macos-latest, windows-latest]
     runs-on: ${{matrix.os}}
     steps:
+      - name: SET UP PROJECT
+        uses: ./.github/workflows/setup.yml
+        with:
+          node_version: ${{matrix.node_version}}
+          os: ${{matrix.os}}
       - name: Go To 1-github
         run: cd './1-github'
       - name: Lint Fix

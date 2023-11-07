@@ -1,19 +1,23 @@
 #  setup build environment for the project
 name: CI-CD Github Actions Setup
-on: [workflow_call]
+on:
+  workflow_call:
+    inputs:
+      os:
+        type: string
+        required: true
+      node_version:
+        type: string
+        required: true
 jobs:
   set-up:
-    strategy:
-      matrix:
-        node_version: [19.x, 20.x]
-        os: [macos-latest, windows-latest]
-    runs-on: ${{matrix.os}}
+    runs-on: ${{inputs.os}}
     steps:
       - name: Checkout using actions/checkout@v4
         uses: actions/checkout@v4
-      - name: Use Node.js version ${{ matrix.node_version }}
+      - name: Use Node.js version ${{ inputs.node_version }}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{matrix.node_version}}
+          node-version: ${{inputs.node_version}}
       - name: Install packages
         run: npm run install-1
