@@ -15,7 +15,7 @@
     "test:setup": "jest --init",
     "test:clear": "jest --clear-cache",
     "test": "cross-env NODE_ENV=development jest --config ./jest/setup/jest.config.ts --runInBand",
-    "prepare": "husky install"
+    "prepare": "cd .. && husky install 1-github/.husky"
   },
   "repository": {
     "type": "git",

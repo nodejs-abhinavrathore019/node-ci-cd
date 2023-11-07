@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [main]
 jobs:
-  set_up:
+  set-up:
     strategy:
       matrix:
         node_version: [16.x, 19.x, 20.x]
@@ -20,4 +20,4 @@ jobs:
         with:
           node-version: ${{matrix.node_version}}
       - name: Install packages
-        run: npm install
+        run: npm run install-1
