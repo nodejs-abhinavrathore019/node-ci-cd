@@ -17,7 +17,7 @@ jobs:
     runs-on: ${{matrix.os}}
     steps:
       - name: Go To 1-github
-        run: cd '1-github'
+        run: cd './1-github'
       - name: Lint Fix
         run: npm run lint:fix
       - name: Lint Check
