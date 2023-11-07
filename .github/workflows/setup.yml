@@ -13,11 +13,11 @@ jobs:
   set-up:
     runs-on: ${{inputs.os}}
     steps:
-      - name: Checkout using actions/checkout@v4
-        uses: actions/checkout@v4
-      - name: Use Node.js version ${{ inputs.node_version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{inputs.node_version}}
+      # - name: Checkout using actions/checkout@v4
+      #   uses: actions/checkout@v4
+      # - name: Use Node.js version ${{ inputs.node_version }}
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     node-version: ${{inputs.node_version}}
       - name: Install packages
         run: npm run install-1
