@@ -1,10 +1,6 @@
 #  setup build environment for the project
 name: CI-CD Github Actions Setup
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+on: [workflow_call]
 jobs:
   set-up:
     strategy:

@@ -1,0 +1,24 @@
+# run lint, test cases and build the project
+name: CI-CD Github Actions Build Project
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  setup-project:
+    uses: ./.github/workflows/setup.yml
+  lint-project:
+    needs: setup-project
+    strategy:
+      matrix:
+        node_version: [19.x, 20.x]
+        os: [macos-latest, windows-latest]
+    runs-on: ${{matrix.os}}
+    steps:
+      - name: Go To 1-github
+        run: cd '1-github'
+      - name: Lint Fix
+        run: npm run lint:fix
+      - name: Lint Check
+        run: npm run lint:check
