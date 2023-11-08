@@ -26,7 +26,7 @@ jobs:
       - name: Go To 1-github
         run: cd './1-github'
       - name: WORKSPACE
-        run: echo ${{github.ref_name}}
+        run: echo ${{github.workspace}}
       - name: Lint Fix
         run: npm run lint:fix
       - name: Lint Check
