@@ -1,4 +1,5 @@
 # .github/release.yml
+# template is used when we publish release on github releases
 changelog:
   exclude:
     labels:
