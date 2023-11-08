@@ -28,7 +28,7 @@ jobs:
         run: echo ${{github.workspace}}
       - name: Lint Fix
         working-directory: ./1-github
-        run: echo ${{fromJSON(env.OS_TYPES)}}
+        run: echo ${{toJSON(env.OS_TYPES)}}
       - name: Lint Check
         run: npm run lint:check
         working-directory: ./1-github
