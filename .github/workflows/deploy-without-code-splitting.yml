@@ -7,6 +7,8 @@ on:
     branches: [main]
 jobs:
   job-deploy-without-code-splitting:
+    permissions:
+      contents: write
     env:
       NODE_VERSIONS: "[19.x, 20.x]"
       OS_TYPES: "[macos-latest, windows-latest]"
@@ -45,3 +47,4 @@ jobs:
         ##if: startsWith(github.ref, 'refs/tags/')
         with:
           tag_name: "v1.0.0"
+          token: ${{secrets.GITHUB_TOKEN}}
