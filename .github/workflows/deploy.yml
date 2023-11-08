@@ -23,14 +23,14 @@ jobs:
         run: npm run install-1
       - name: WORKSPACE
         run: echo ${{github.workspace}}
-      - name: Go To 1-github
-        run: cd './1-github'
-      - name: WORKSPACE
-        run: echo ${{github.workspace}}/package.json
       - name: Lint Fix
-        run: npm run lint:fix
+        working-directory: ./1-github
+        run: |
+          echo ${{github.workspace}}/package.json
+          npm run lint:fix
       - name: Lint Check
         run: npm run lint:check
+        working-directory: ./1-github
       - name: Go To 1-github directory
         run: echo "deploy"
     # uses: ./.github/workflows/setup.yml
