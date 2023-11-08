@@ -29,7 +29,6 @@ jobs:
       - name: Lint Fix
         working-directory: ./1-github
         run: |
-          echo ${{github.workspace}}/package.json
           echo  ${{ fromJSON(env.OS_TYPES) }}
           npm run lint:fix
       - name: Lint Check
