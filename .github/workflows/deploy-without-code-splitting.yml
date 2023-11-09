@@ -60,6 +60,9 @@ jobs:
         uses: actions/setup-node@v3
       - name: Install packages
         run: npm run install-1
+      - name: BUILD
+        working-directory: ./1-github
+        run: npm run build
       - name: CREATE RELEASE TAG
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
