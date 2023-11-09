@@ -9,6 +9,8 @@ jobs:
   job-deploy-without-code-splitting:
     permissions:
       contents: write
+      issues: write
+      pull-requests: write
     env:
       NODE_VERSIONS: "[19.x, 20.x]"
       OS_TYPES: "[macos-latest, windows-latest]"
@@ -50,4 +52,5 @@ jobs:
         #   token: ${{secrets.GITHUB_TOKEN}}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npx semantic-release
