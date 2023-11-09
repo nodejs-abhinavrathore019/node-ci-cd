@@ -30,7 +30,7 @@ describe('get_cats_list', () => {
       apiStatus: 1,
       message: 'success',
       data: {
-        count: 10,
+        totalCount: 10,
         dogs: [
           {
             id: 'zlpgGWqN7',
@@ -101,7 +101,7 @@ describe('get_cats_list', () => {
       apiStatus: 0,
       message: 'No results found',
       data: {
-        count: 0,
+        totalCount: 0,
         dogs: [],
       },
     };
