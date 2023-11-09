@@ -1,6 +1,6 @@
 {
   "name": "nodejs-ci-cd",
-  "version": "0.0.0-dev",
+  "version": "1.0.0",
   "description": "ci/cd implementation using github actions, circle-ci and jenkins",
   "main": "dist/app.js",
   "scripts": {
