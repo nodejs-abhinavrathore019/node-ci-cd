@@ -54,6 +54,12 @@ jobs:
     needs: job-deploy-without-code-splitting
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout using actions/checkout@v4
+        uses: actions/checkout@v4
+      - name: Node.js
+        uses: actions/setup-node@v3
+      - name: Install packages
+        run: npm run install-1
       - name: CREATE RELEASE TAG
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
