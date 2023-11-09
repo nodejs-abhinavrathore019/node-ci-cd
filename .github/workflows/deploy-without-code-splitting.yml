@@ -53,6 +53,10 @@ jobs:
   job-release:
     needs: job-deploy-without-code-splitting
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
     steps:
       - name: Checkout using actions/checkout@v4
         uses: actions/checkout@v4
