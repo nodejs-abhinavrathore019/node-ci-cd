@@ -1,7 +1,7 @@
 # creates release tags after successful build for now.
 name: Publish
 on:
-  repository_dispatch:
+  workflow_dispatch:
 jobs:
   job-build:
     uses: "./.github/workflows/verify.yml"
