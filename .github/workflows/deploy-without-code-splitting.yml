@@ -42,9 +42,10 @@ jobs:
         working-directory: ./1-github
         run: npm run build
       - name: CREATE RELEASE TAG
-        uses: softprops/action-gh-release@v1
+        # uses: softprops/action-gh-release@v1
         ## run only if githb.rf is referencing to tags.
         ##if: startsWith(github.ref, 'refs/tags/')
-        with:
-          tag_name: "v1.0.1"
-          token: ${{secrets.GITHUB_TOKEN}}
+        # with:
+        #   tag_name: "v1.0.1"
+        #   token: ${{secrets.GITHUB_TOKEN}}
+        run: npx semantic-release

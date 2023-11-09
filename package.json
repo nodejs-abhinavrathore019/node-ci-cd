@@ -25,6 +25,7 @@
   ],
   "author": "deltacap019",
   "license": "ISC",
-  "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "semantic-release": "22.0.7"
+  }
 }
