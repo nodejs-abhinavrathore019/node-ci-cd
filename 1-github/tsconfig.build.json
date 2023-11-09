@@ -1,7 +1,7 @@
 {
   "extends": "./tsconfig.json",
   "exclude": [
-    "jest/**/*",
+    "jest/",
     "**/__mocks__/*",
     "**/__tests__/*"
   ]
