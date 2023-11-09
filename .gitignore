@@ -3,3 +3,4 @@ package-lock.json
 dist/
 jest/coverage/
 3-jenkins-copy/
+.workflows-*
