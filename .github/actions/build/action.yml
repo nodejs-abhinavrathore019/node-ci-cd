@@ -21,3 +21,5 @@ runs:
       working-directory: ./1-github
       shell: bash
       run: npm run build
+    - name: Create Artifact
+      uses: actions/upload-artifact@v3

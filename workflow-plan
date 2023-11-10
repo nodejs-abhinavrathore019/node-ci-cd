@@ -1,11 +1,11 @@
 setup -> build -> lint -> test -> tag_release
 
-- using single job
-- using code splitting using actions
+- using single job [DONE]
+- using code splitting using actions [DONE]
+- can we share node setup using artifacts
 - using caching for setup
 - using docker container
-- re-useable workflows
+- re-useable workflows [DONE]
     - WF1 => setup -> build -> lint -> test
     - WF2 => tag_release
-- Dispatched workflows for version_bump => create a tag.
-- can we share node setup using artifacts
+- Dispatched workflows for version_bump => create a tag. [DONE]
