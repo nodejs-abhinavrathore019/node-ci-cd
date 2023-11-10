@@ -15,6 +15,7 @@ jobs:
       - name: Setup
         uses: "./.github/actions/setup/"
   job-build:
+    needs: job-setup
     env:
       NODE_VERSIONS: "[19.x, 20.x]"
       OS_TYPES: "[macos-latest, windows-latest]"
