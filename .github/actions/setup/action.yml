@@ -1,0 +1,14 @@
+name: Setup Project
+description: checks-out project, setup Node.js, and install packages
+runs:
+  using: composite
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Use Node.js ${{ matrix.node_version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{matrix.node_version}}
+    - name: Install Packages
+      shell: bash
+      run: npm run install-1
