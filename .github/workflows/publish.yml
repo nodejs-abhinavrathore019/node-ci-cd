@@ -4,7 +4,39 @@ on:
   workflow_dispatch:
 jobs:
   job-build:
-    uses: "./.github/workflows/verify.yml"
+    env:
+      NODE_VERSIONS: "[19.x, 20.x]"
+      OS_TYPES: "[macos-latest, windows-latest]"
+    strategy:
+      matrix:
+        node_version: [19.x, 20.x]
+        os: [macos-latest, windows-latest] ## not using env.OS_TYPES as env context is not available at job level.
+    runs-on: ${{matrix.os}}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node_version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{matrix.node_version}}
+      - name: Install Packages
+        run: npm run install-1
+      - name: Testing toJSON
+        run: echo ${{toJSON(env.OS_TYPES)}}
+      - name: Lint Fix
+        working-directory: ./1-github
+        run: | # expression aids in multiline yaml string
+          echo fixing lint
+          npm run lint:fix
+      - name: Lint Check
+        working-directory: ./1-github
+        run: npm run lint:check
+      - name: Test
+        working-directory: ./1-github
+        run: npm run test
+      - name: Build
+        working-directory: ./1-github
+        run: npm run build
   job-release:
     needs: job-build
     runs-on: ubuntu-latest
