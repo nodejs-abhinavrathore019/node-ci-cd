@@ -7,6 +7,13 @@ on:
     branches: [main]
   workflow_call:
 jobs:
+  job-setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup
+        uses: "./.github/actions/setup/"
   job-build:
     env:
       NODE_VERSIONS: "[19.x, 20.x]"
@@ -17,9 +24,9 @@ jobs:
         os: [macos-latest, windows-latest] ## not using env.OS_TYPES as env context is not available at job level.
     runs-on: ${{matrix.os}}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup
-        uses: "./.github/actions/setup/"
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: my-artifact
       - name: Build
         uses: "./.github/actions/build/"
