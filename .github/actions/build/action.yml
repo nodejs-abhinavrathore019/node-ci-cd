@@ -3,21 +3,24 @@ description: lints project, run tests, and build project
 runs:
   using: composite
   steps:
+    - name: listing inside build
+      shell: bash
+      run: ls -R
     - name: Lint Fix
       working-directory: ./1-github
       shell: bash
       run: | # expression aids in multiline yaml string
         echo fixing lint
-        sudo npm run lint:fix
+        npm run lint:fix
     - name: Lint Check
       working-directory: ./1-github
       shell: bash
-      run: sudo npm run lint:check
+      run: npm run lint:check
     - name: Test
       working-directory: ./1-github
       shell: bash
-      run: sudo npm run test
+      run: npm run test
     - name: Build
       working-directory: ./1-github
       shell: bash
-      run: sudo npm run build
+      run: npm run build
