@@ -16,10 +16,10 @@ runs:
     #   working-directory: ./1-github
     #   shell: bash
     #   run: npm run lint:check
-    # - name: Test
-    #   working-directory: ./1-github
-    #   shell: bash
-    #   run: npm run test
+    - name: Test
+      working-directory: ./1-github
+      shell: bash
+      run: npm run test
     - name: Build
       working-directory: ./1-github
       shell: bash
