@@ -8,16 +8,16 @@ runs:
       shell: bash
       run: | # expression aids in multiline yaml string
         echo fixing lint
-        npm run lint:fix
+        sudo npm run lint:fix
     - name: Lint Check
       working-directory: ./1-github
       shell: bash
-      run: npm run lint:check
+      run: sudo npm run lint:check
     - name: Test
       working-directory: ./1-github
       shell: bash
-      run: npm run test
+      run: sudo npm run test
     - name: Build
       working-directory: ./1-github
       shell: bash
-      run: npm run build
+      run: sudo npm run build
