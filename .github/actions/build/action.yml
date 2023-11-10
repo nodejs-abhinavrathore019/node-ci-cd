@@ -16,7 +16,7 @@ runs:
     - name: Test
       working-directory: ./1-github
       shell: bash
-      run: npm run sudo test
+      run: sudo npm run test
     - name: Build
       working-directory: ./1-github
       shell: bash
