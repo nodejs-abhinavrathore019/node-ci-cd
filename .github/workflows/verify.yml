@@ -18,6 +18,6 @@ jobs:
     runs-on: ${{matrix.os}}
     steps:
       - name: Setup
-        uses: "./.github/actions/setup"
+        uses: "./.github/actions/setup/"
       - name: Build
-        uses: "./.github/actions/build"
+        uses: "./.github/actions/build/"

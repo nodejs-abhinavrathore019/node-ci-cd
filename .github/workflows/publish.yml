@@ -14,9 +14,9 @@ jobs:
     runs-on: ${{matrix.os}}
     steps:
       - name: Checkout
-        uses: "./.github/actions/setup"
+        uses: "./.github/actions/setup/"
       - name: Build
-        uses: "./.github/actions/build"
+        uses: "./.github/actions/build/"
   job-release:
     needs: job-build
     runs-on: ubuntu-latest
@@ -27,9 +27,9 @@ jobs:
       id-token: write
     steps:
       - name: Checkout
-        uses: "./.github/actions/setup"
+        uses: "./.github/actions/setup/"
       - name: Build
-        uses: "./.github/actions/build"
+        uses: "./.github/actions/build/"
       - name: Publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
