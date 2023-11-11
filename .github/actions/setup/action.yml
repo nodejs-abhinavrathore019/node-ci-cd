@@ -22,4 +22,4 @@ runs:
       with:
         name: my-artifact
         path: |
-          "my_artifact.zip"
+          my_artifact.zip
