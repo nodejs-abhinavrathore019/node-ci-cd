@@ -8,20 +8,11 @@ runs:
     - name: Install Packages
       shell: bash
       run: npm run install-1
-    - name: list root
-      shell: bash
-      run: |
-        ls -l
-    - name: list github
-      working-directory: ./1-github
-      shell: bash
-      run: |
-        ls -l
     - name: list node_modules
       working-directory: ./1-github/node_modules
       shell: bash
       run: |
-        ls -l
+        ls -l -a
     - name: Create Artifact
       uses: actions/upload-artifact@v3
       with:
