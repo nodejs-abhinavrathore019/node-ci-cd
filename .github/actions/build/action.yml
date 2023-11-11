@@ -4,7 +4,7 @@ runs:
   using: composite
   steps:
     - name: permissions issues
-      working-directory: ./1-github/node_modules
+      working-directory: ./1-github
       shell: bash
       run: |
         ls -l
