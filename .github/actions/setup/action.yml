@@ -12,4 +12,5 @@ runs:
       uses: actions/upload-artifact@v3
       with:
         name: my-artifact
-        path: "./"
+        path: |
+          "./1-github/node_modules/.bin"
