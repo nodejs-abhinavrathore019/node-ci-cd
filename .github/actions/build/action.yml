@@ -3,23 +3,6 @@ description: lints project, run tests, and build project
 runs:
   using: composite
   steps:
-    - name: Download Artifact
-      uses: actions/download-artifact@v3
-      with:
-        name: my-artifact
-    - name: list files
-      shell: bash
-      run: |
-        ls -l -a
-    - name: Unzip Artifact
-      shell: bash
-      run: |
-        unzip -o -r my_artifact.zip ./
-        rm -rf my_artifact.zip
-    - name: list files
-      shell: bash
-      run: |
-        ls -l -a
     - name: permissions issues
       working-directory: ./1-github
       shell: bash

@@ -23,5 +23,22 @@ jobs:
     needs: job-setup
     runs-on: ubuntu-latest
     steps:
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: my-artifact
+      - name: list files
+        shell: bash
+        run: |
+          ls -l -a
+      - name: Unzip Artifact
+        shell: bash
+        run: |
+          unzip -o -r my_artifact.zip ./
+          rm -rf my_artifact.zip
+      - name: list files
+        shell: bash
+        run: |
+          ls -l -a
       - name: Build
         uses: "./.github/actions/build/"
