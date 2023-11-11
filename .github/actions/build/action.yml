@@ -7,6 +7,10 @@ runs:
       working-directory: ./1-github
       shell: bash
       run: chmod -R a+x node_modules
+    - name: listing files
+      working-directory: ./1-github
+      shell: bash
+      run: ls -R
     - name: Lint Fix
       working-directory: ./1-github
       shell: bash
