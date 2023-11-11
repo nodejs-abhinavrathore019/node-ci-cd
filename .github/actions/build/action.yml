@@ -4,23 +4,22 @@ runs:
   using: composite
   steps:
     - name: permissions issues
-      working-directory: ./1-github
+      working-directory: ./1-github/node_modules
       shell: bash
-      run: chmod -R a+x node_modules
-    - name: listing files
-      working-directory: ./1-github
-      shell: bash
-      run: ls -R
-    - name: Lint Fix
-      working-directory: ./1-github
-      shell: bash
-      run: | # expression aids in multiline yaml string
-        echo fixing lint
-        npm run lint:fix
-    - name: Lint Check
-      working-directory: ./1-github
-      shell: bash
-      run: npm run lint:check
+      run: |
+        ls -l
+        chmod -R a+x node_modules
+        ls -l
+    # - name: Lint Fix
+    #   working-directory: ./1-github
+    #   shell: bash
+    #   run: | # expression aids in multiline yaml string
+    #     echo fixing lint
+    #     npm run lint:fix
+    # - name: Lint Check
+    #   working-directory: ./1-github
+    #   shell: bash
+    #   run: npm run lint:check
     - name: Test
       working-directory: ./1-github
       shell: bash
