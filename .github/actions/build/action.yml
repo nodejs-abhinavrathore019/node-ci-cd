@@ -3,10 +3,10 @@ description: lints project, run tests, and build project
 runs:
   using: composite
   steps:
-    # - name: permissions issues
-    #   working-directory: ./1-github
-    #   shell: bash
-    #   run: chmod u+x /node_modules/**/*.sh
+    - name: permissions issues
+      working-directory: ./1-github
+      shell: bash
+      run: chmod -R a+x node_modules
     - name: Lint Fix
       working-directory: ./1-github
       shell: bash
