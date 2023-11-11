@@ -34,7 +34,7 @@ jobs:
       - name: Unzip Artifact
         shell: bash
         run: |
-          unzip -o my_artifact.zip ./
+          unzip -o my_artifact.zip
           rm -rf my_artifact.zip
       - name: list files
         shell: bash
