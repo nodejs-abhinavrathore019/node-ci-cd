@@ -22,4 +22,4 @@ runs:
       with:
         name: my-artifact
         path: |
-          "./1-github/node_modules/.bin"
+          "./my_artifact.zip"
