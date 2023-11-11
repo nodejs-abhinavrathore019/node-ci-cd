@@ -23,9 +23,5 @@ jobs:
     needs: job-setup
     runs-on: ubuntu-latest
     steps:
-      - name: Download Artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: my-artifact
       - name: Build
         uses: "./.github/actions/build/"
