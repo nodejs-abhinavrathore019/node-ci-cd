@@ -8,8 +8,12 @@ runs:
     - name: Install Packages
       shell: bash
       run: npm run install-1
-    - name: list node_modules
-      working-directory: ./1-github/node_modules
+    - name: Create zipped Artifact
+      shell: bash
+      run: |
+        rm -rf my_artifact.zip
+        zip -r my_artifact.zip ./
+    - name: list files
       shell: bash
       run: |
         ls -l -a
