@@ -7,6 +7,10 @@ runs:
       uses: actions/download-artifact@v3
       with:
         name: my-artifact
+    - name: list files
+      shell: bash
+      run: |
+        ls -l -a
     - name: Unzip Artifact
       shell: bash
       run: |
