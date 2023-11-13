@@ -3,6 +3,42 @@ name: Publish
 on:
   workflow_dispatch:
 jobs:
+  job-check-artifact:
+    runs-on: ubuntu-latest
+    outputs:
+      exists: ${{ steps.check_artifact_exists.outputs.exists }}
+    steps:
+      - uses: xSAVIKx/artifact-exists-action@v0
+        id: "check_artifact_exists"
+        with:
+          name: "my_artifact.zip"
+  job-download-artifact:
+    needs: job-check-artifact
+    if: "${{ needs.job-check-artifact.outputs.exists }}"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Artifact exists
+        run: echo Artifact exists
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: my-artifact
+      - name: Unzip Artifact
+        shell: bash
+        run: |
+          unzip -o my_artifact.zip
+          rm -rf my_artifact.zip
+  job-checkout:
+    needs: job-check-artifact
+    if: "${{ needs.job-check-artifact.outputs.exists == 'false' }}"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Artifact does not exist
+        run: echo Artifact does not exist
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup
+        uses: "./.github/actions/setup/"
   job-build:
     env:
       NODE_VERSIONS: "[19.x, 20.x]"
@@ -13,10 +49,15 @@ jobs:
         os: [macos-latest, windows-latest] ## not using env.OS_TYPES as env context is not available at job level.
     runs-on: ${{matrix.os}}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup
-        uses: "./.github/actions/setup/"
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: my-artifact
+      - name: Unzip Artifact
+        shell: bash
+        run: |
+          unzip -o my_artifact.zip
+          rm -rf my_artifact.zip
       - name: Build
         uses: "./.github/actions/build/"
   job-release:
@@ -28,10 +69,15 @@ jobs:
       pull-requests: write
       id-token: write
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup
-        uses: "./.github/actions/setup/"
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: my-artifact
+      - name: Unzip Artifact
+        shell: bash
+        run: |
+          unzip -o my_artifact.zip
+          rm -rf my_artifact.zip
       - name: Build
         uses: "./.github/actions/build/"
       - name: Publish
