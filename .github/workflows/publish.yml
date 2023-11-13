@@ -18,7 +18,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Artifact exists
-        run: echo Artifact exists
+        run: echo Artifact output:${{needs.job-check-artifact.outputs}}
+      - name: Artifact exists
+        run: echo Artifact exist:${{needs.job-check-artifact.outputs.exists}}
       - name: Download Artifact
         uses: actions/download-artifact@v3
         with:
@@ -34,7 +36,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Artifact does not exist
-        run: echo Artifact does not exist
+        run: echo Artifact exists:${{needs.job-check-artifact.outputs.exists}}
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup
