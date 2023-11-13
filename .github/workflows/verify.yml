@@ -16,6 +16,11 @@ jobs:
         uses: "./.github/actions/setup/"
         with:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      - name: List Cache
+        env:
+          GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        shell: bash
+        run: gh cache list
   job-build:
     permissions:
       contents: write
