@@ -25,6 +25,8 @@ jobs:
         with:
           path: ./
           key: set_up_key
+      - name: Build
+        uses: "./.github/actions/build/"
       - name: Publish
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
