@@ -2,7 +2,7 @@ setup -> build -> lint -> test -> tag_release
 
 - using single job [DONE]
 - using code splitting using actions [DONE]
-- can we share node setup using artifacts
+- can we share node setup using artifacts [DONE]
 - using caching for setup
 - using docker container
 - re-useable workflows [DONE]
