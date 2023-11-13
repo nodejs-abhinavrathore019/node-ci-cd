@@ -78,9 +78,6 @@ jobs:
       id-token: write
     if: always()
     steps:
-      - name: job build result
-        run: |
-          echo Job build:${{needs.job-build.result}}
       - name: Download Artifact
         uses: actions/download-artifact@v3
         with:
@@ -92,7 +89,10 @@ jobs:
           rm -rf my_artifact.zip
       - name: Build
         uses: "./.github/actions/build/"
+      - name: CWR
+        run: |
+          ls -l -a
       - name: Publish
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         run: npx semantic-release
