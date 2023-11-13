@@ -6,7 +6,9 @@ runs:
     - name: Reset git
       shell: bash
       run: |
+        cat ./.git/config
         git credential-cache exit
+        cat ./.git/config
     - name: Lint Fix
       working-directory: ./1-github
       shell: bash

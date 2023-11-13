@@ -89,9 +89,6 @@ jobs:
           rm -rf my_artifact.zip
       - name: Build
         uses: "./.github/actions/build/"
-      - name: CWR
-        run: |
-          ls -l -a
       - name: Publish
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
