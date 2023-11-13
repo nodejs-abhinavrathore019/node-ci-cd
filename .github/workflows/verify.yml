@@ -22,21 +22,23 @@ jobs:
       issues: write
       pull-requests: write
     needs: job-setup
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node_version: [19.x, 20.x]
+        os: [macos-latest, windows-latest] ## not using env.OS_TYPES as env context is not available at job level.
+    runs-on: ${{matrix.os}}
     steps:
-      # - name: Checkout
-      #   uses: actions/checkout@v4
       - name: Restore Cache
         uses: actions/cache/restore@v3
         id: set_up
         with:
           path: ./
           key: set_up_key
-      - name: List
-        run: |
-          ls -l -a
-          cd ./1-github
-          ls -l -a
+      # - name: List
+      #   run: |
+      #     ls -l -a
+      #     cd ./1-github
+      #     ls -l -a
       - name: Install Dependencies
         if: steps.set_up.outputs.cache-hit != 'true'
         uses: "./.github/actions/setup/"
