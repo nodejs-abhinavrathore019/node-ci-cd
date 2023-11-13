@@ -3,11 +3,6 @@ description: lints project, run tests, and build project
 runs:
   using: composite
   steps:
-    - name: permissions issues root
-      shell: bash
-      run: |
-        cd ./1-github/node_modules/.bin
-        ls -l -a
     # - name: permissions issues sub
     #   working-directory: ./1-github
     #   shell: bash
@@ -15,16 +10,16 @@ runs:
     #     ls -l -a
     #     chmod -R a+x node_modules
     #     ls -l -a
-    # - name: Lint Fix
-    #   working-directory: ./1-github
-    #   shell: bash
-    #   run: | # expression aids in multiline yaml string
-    #     echo fixing lint
-    #     npm run lint:fix
-    # - name: Lint Check
-    #   working-directory: ./1-github
-    #   shell: bash
-    #   run: npm run lint:check
+    - name: Lint Fix
+      working-directory: ./1-github
+      shell: bash
+      run: | # expression aids in multiline yaml string
+        echo fixing lint
+        npm run lint:fix
+    - name: Lint Check
+      working-directory: ./1-github
+      shell: bash
+      run: npm run lint:check
     - name: Test
       working-directory: ./1-github
       shell: bash
