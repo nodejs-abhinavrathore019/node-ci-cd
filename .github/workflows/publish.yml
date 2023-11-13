@@ -96,7 +96,7 @@ jobs:
       - name: Reset GitHub Auth
         run: |
           cat ./.git/config
-          git config http.https://github.com/.extraheader "AUTHORIZATION: basic ***"
+          git config --unset-all http.https://github.com/.extraheader
           cat ./.git/config
       # - name: Build
       #   uses: "./.github/actions/build/"
