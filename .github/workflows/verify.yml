@@ -42,16 +42,15 @@ jobs:
         with:
           path: ./
           key: set_up_key
-      - name: List Cache
-        env:
-          GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
-        shell: bash
-        run: gh cache list
-      - name: Install Dependencies
-        if: steps.set_up.outputs.cache-hit != 'true'
-        run: echo cache missed fresh install
       - name: List
         run: |
           ls -l -a
+          cd ./1-github
+          ls -l -a
+      - name: Install Dependencies
+        if: steps.set_up.outputs.cache-hit != 'true'
+        uses: "./.github/actions/setup/"
+        with:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
       - name: Build
         uses: "./.github/actions/build/"
