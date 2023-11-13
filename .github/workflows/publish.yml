@@ -44,11 +44,11 @@ jobs:
   job-build:
     env:
       NODE_VERSIONS: "[19.x, 20.x]"
-      OS_TYPES: "[macos-latest, windows-latest]"
+      OS_TYPES: "[macos-latest, ubuntu-latest]"
     strategy:
       matrix:
         node_version: [19.x, 20.x]
-        os: [macos-latest, windows-latest] ## not using env.OS_TYPES as env context is not available at job level.
+        os: [macos-latest, ubuntu-latest] ## not using env.OS_TYPES as env context is not available at job level.
     needs: [job-download-artifact, job-checkout]
     runs-on: ${{matrix.os}}
     if: always()
