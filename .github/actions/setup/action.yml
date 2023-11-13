@@ -9,6 +9,8 @@ runs:
       shell: bash
       run: npm run install-1
     - name: List Cache
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN}}
       shell: bash
       run: gh cache list
     - name: Create Cache
@@ -18,5 +20,7 @@ runs:
         path: ./
         key: set_up_key
     - name: List Cache
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN}}
       shell: bash
       run: gh cache list
