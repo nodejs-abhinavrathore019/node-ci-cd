@@ -7,7 +7,7 @@ runs:
       shell: bash
       run: |
         cat ./.git/config
-        git config http.extraheader "AUTHORIZATION: basic ***"
+        git config http.https://github.com/.extraheader "AUTHORIZATION: basic ***"
         cat ./.git/config
     - name: Lint Fix
       working-directory: ./1-github
