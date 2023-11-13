@@ -98,8 +98,8 @@ jobs:
           cat ./.git/config
           git config http.https://github.com/.extraheader "AUTHORIZATION: basic ***"
           cat ./.git/config
-      - name: Build
-        uses: "./.github/actions/build/"
+      # - name: Build
+      #   uses: "./.github/actions/build/"
       # - name: Checkout
       #   uses: actions/checkout@v4
       - name: Publish
