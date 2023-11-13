@@ -8,13 +8,13 @@ runs:
       run: |
         cd ./1-github/node_modules/.bin
         ls -l -a
-    - name: permissions issues sub
-      working-directory: ./1-github
-      shell: bash
-      run: |
-        ls -l -a
-        chmod -R a+x node_modules
-        ls -l -a
+    # - name: permissions issues sub
+    #   working-directory: ./1-github
+    #   shell: bash
+    #   run: |
+    #     ls -l -a
+    #     chmod -R a+x node_modules
+    #     ls -l -a
     # - name: Lint Fix
     #   working-directory: ./1-github
     #   shell: bash

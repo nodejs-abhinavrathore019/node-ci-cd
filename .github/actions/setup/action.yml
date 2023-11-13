@@ -12,11 +12,7 @@ runs:
       shell: bash
       run: |
         rm -rf my_artifact.zip
-        zip -r my_artifact.zip ./
-    - name: list files
-      shell: bash
-      run: |
-        ls -l -a
+        zip -r --symlinks my_artifact.zip ./
     - name: Create Artifact
       uses: actions/upload-artifact@v3
       with:
