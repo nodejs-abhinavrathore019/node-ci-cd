@@ -92,6 +92,9 @@ jobs:
       - name: CWR
         run: |
           ls -l -a
+      - name: GithubToken
+        run: |
+          echo ${{secrets.GITHUB_TOKEN}}
       - name: Publish
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
