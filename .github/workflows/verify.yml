@@ -16,11 +16,6 @@ jobs:
         uses: "./.github/actions/setup/"
         with:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-      - name: List Cache
-        env:
-          GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
-        shell: bash
-        run: gh cache list
   job-build:
     permissions:
       contents: write
@@ -29,8 +24,8 @@ jobs:
     needs: job-setup
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      # - name: Checkout
+      #   uses: actions/checkout@v4
       - name: List
         run: |
           ls -l -a
