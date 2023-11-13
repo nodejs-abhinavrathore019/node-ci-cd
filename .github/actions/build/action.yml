@@ -3,12 +3,6 @@ description: lints project, run tests, and build project
 runs:
   using: composite
   steps:
-    - name: Reset GitHub Auth
-      shell: bash
-      run: |
-        cat ./.git/config
-        git config http.https://github.com/.extraheader "AUTHORIZATION: basic ***"
-        cat ./.git/config
     - name: Lint Fix
       working-directory: ./1-github
       shell: bash

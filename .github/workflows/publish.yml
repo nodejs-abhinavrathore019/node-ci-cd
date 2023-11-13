@@ -93,14 +93,15 @@ jobs:
         run: |
           unzip -o my_artifact.zip
           rm -rf my_artifact.zip
+      - name: Reset GitHub Auth
+        run: |
+          cat ./.git/config
+          git config http.https://github.com/.extraheader "AUTHORIZATION: basic ***"
+          cat ./.git/config
       - name: Build
         uses: "./.github/actions/build/"
       # - name: Checkout
       #   uses: actions/checkout@v4
-      # - name: checkout git
-      #   shell: bash
-      #   run: |
-      #     cat ./.git/config
       - name: Publish
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
