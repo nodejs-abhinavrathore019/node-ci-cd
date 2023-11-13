@@ -53,6 +53,10 @@ jobs:
     runs-on: ${{matrix.os}}
     if: always()
     steps:
+      - name: Artifact does not exist
+        run: |
+          echo Download artifact:${{needs.job-download-artifact.result}}
+          echo Job chckout:${{needs.job-checkout.result}}
       - name: Download Artifact
         uses: actions/download-artifact@v3
         with:
