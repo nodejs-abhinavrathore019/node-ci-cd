@@ -76,7 +76,7 @@ jobs:
       issues: write
       pull-requests: write
       id-token: write
-    if: ${{needs.job-build.result}} == 'success'
+    if: always()
     steps:
       - name: job build result
         run: |
