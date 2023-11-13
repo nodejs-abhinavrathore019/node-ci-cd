@@ -33,6 +33,11 @@ jobs:
         with:
           path: /
           key: set_up_key
+      - name: List Cache
+        env:
+          GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        shell: bash
+        run: gh cache list
       - name: Install Dependencies
         if: steps.set_up.outputs.cache-hit != 'true'
         run: echo cache missed fresh install
