@@ -51,9 +51,9 @@ jobs:
         os: [macos-latest, ubuntu-latest] ## not using env.OS_TYPES as env context is not available at job level.
     needs: [job-download-artifact, job-checkout]
     runs-on: ${{matrix.os}}
-    if: always()
+    if: ${{needs.job-download-artifact.result}} == 'success' || ${{needs.job-checkout.result}} == 'success'
     steps:
-      - name: Artifact does not exist
+      - name: needs jobs results
         run: |
           echo Download artifact:${{needs.job-download-artifact.result}}
           echo Job chckout:${{needs.job-checkout.result}}
@@ -77,6 +77,9 @@ jobs:
       pull-requests: write
       id-token: write
     steps:
+      - name: job build result
+        run: |
+          echo Job build:${{needs.job-build.result}}
       - name: Download Artifact
         uses: actions/download-artifact@v3
         with:
