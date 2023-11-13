@@ -26,11 +26,6 @@ jobs:
     steps:
       # - name: Checkout
       #   uses: actions/checkout@v4
-      - name: List
-        run: |
-          ls -l -a
-          cd ./1-github
-          ls -l -a
       - name: Restore Cache
         uses: actions/cache/restore@v3
         id: set_up
