@@ -8,9 +8,15 @@ runs:
     - name: Install Packages
       shell: bash
       run: npm run install-1
+    - name: List Cache
+      shell: bash
+      run: gh cache list
     - name: Create Cache
       uses: actions/cache/save@v3
       id: set_up
       with:
         path: ./
         key: set_up_key
+    - name: List Cache
+      shell: bash
+      run: gh cache list
