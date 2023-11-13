@@ -6,9 +6,7 @@ runs:
     - name: permissions issues root
       shell: bash
       run: |
-        cd ../
-        cd ../
-        chmod -R a+x node-ci-cd
+        cd ./1-github/node_modules/.bin
         ls -l -a
     - name: permissions issues sub
       working-directory: ./1-github
