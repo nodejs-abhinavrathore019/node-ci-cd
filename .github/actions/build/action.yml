@@ -3,6 +3,10 @@ description: lints project, run tests, and build project
 runs:
   using: composite
   steps:
+    - name: Reset git
+      shell: bash
+      run: |
+        git credential-cache exit
     - name: Lint Fix
       working-directory: ./1-github
       shell: bash
