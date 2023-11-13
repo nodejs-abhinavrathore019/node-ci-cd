@@ -3,6 +3,12 @@ description: lints project, run tests, and build project
 runs:
   using: composite
   steps:
+    - name: Reset .git auth config
+      shell: bash
+      run: |
+        git config --unset-all credential.helper
+        git config --global --unset-all credential.helper
+        git config --system --unset-all credential.helper
     - name: Lint Fix
       working-directory: ./1-github
       shell: bash
