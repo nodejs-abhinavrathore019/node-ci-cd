@@ -8,14 +8,9 @@ runs:
     - name: Install Packages
       shell: bash
       run: npm run install-1
-    - name: Create zipped Artifact
-      shell: bash
-      run: |
-        rm -rf my_artifact.zip
-        zip -r --symlinks my_artifact.zip ./
-    - name: Create Artifact
-      uses: actions/upload-artifact@v3
+    - name: Create Cache
+      uses: actions/cache/save@v3
+      id: set_up
       with:
-        name: my-artifact
-        path: |
-          my_artifact.zip
+        path: ./
+        key: set_up_key

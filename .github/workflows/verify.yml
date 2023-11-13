@@ -22,14 +22,20 @@ jobs:
     needs: job-setup
     runs-on: ubuntu-latest
     steps:
-      - name: Download Artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: my-artifact
-      - name: Unzip Artifact
-        shell: bash
+      - name: List
         run: |
-          unzip -o my_artifact.zip
-          rm -rf my_artifact.zip
+          ls -l - a
+      - name: Restore Cache
+        uses: actions/cache/restore@v3
+        id: set_up
+        with:
+          path: /
+          key: set_up_key
+      - name: Install Dependencies
+        if: steps.set_up.outputs.cache-hit != 'true'
+        run: echo cache missed fresh install
+      - name: List
+        run: |
+          ls -l - a
       - name: Build
         uses: "./.github/actions/build/"
