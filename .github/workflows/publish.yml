@@ -48,6 +48,7 @@ jobs:
         node_version: [19.x, 20.x]
         os: [macos-latest, windows-latest] ## not using env.OS_TYPES as env context is not available at job level.
     runs-on: ${{matrix.os}}
+    needs: [job-download-artifact, job-checkout]
     steps:
       - name: Download Artifact
         uses: actions/download-artifact@v3
