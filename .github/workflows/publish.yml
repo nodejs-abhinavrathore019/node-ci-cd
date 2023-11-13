@@ -93,13 +93,8 @@ jobs:
         run: |
           unzip -o my_artifact.zip
           rm -rf my_artifact.zip
-      - name: Reset GitHub Auth
-        run: |
-          cat ./.git/config
-          git config --unset-all http.https://github.com/.extraheader
-          cat ./.git/config
-      # - name: Build
-      #   uses: "./.github/actions/build/"
+      - name: Build
+        uses: "./.github/actions/build/"
       # - name: Checkout
       #   uses: actions/checkout@v4
       - name: Publish
