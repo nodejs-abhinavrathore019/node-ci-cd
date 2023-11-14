@@ -6,10 +6,10 @@ on:
   pull_request:
     branches: [main]
   workflow_call:
-    # secrets:
-    #   PAT_GITHUB:
-    #     required: true
-    #     description: "PAT for Github"
+    secrets:
+      PAT_GITHUB:
+        required: true
+        description: "PAT for Github"
 jobs:
   job-setup:
     permissions:
@@ -24,7 +24,7 @@ jobs:
         uses: "./.github/actions/setup/"
         with:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-        # PAT_GITHUB: ${{secrets.PAT_GITHUB}}
+          PAT_GITHUB: ${{secrets.PAT_GITHUB}}
   job-build:
     permissions:
       contents: write
