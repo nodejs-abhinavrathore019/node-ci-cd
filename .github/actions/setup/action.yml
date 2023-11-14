@@ -5,7 +5,7 @@ inputs:
     required: true
     description: "github token value"
   PAT_GITHUB:
-    required: true
+    required: false
     description: "PAT for Github"
 runs:
   using: composite
