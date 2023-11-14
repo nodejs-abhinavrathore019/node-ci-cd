@@ -24,18 +24,19 @@ runs:
       with:
         path: ./
         key: set_up_key
-    - name: Delete Cache
-      env:
-        GH_TOKEN: ${{inputs.PAT_GITHUB}}
-      shell: bash
-      if: steps.set_up.outputs.cache-hit == 'true'
-      run: gh cache delete set_up_key
-    - name: Create Cache
-      uses: actions/cache/save@v3
-      id: set_up
-      with:
-        path: ./
-        key: set_up_key
+        restore-keys: set_up_key
+    # - name: Delete Cache
+    #   env:
+    #     GH_TOKEN: ${{inputs.PAT_GITHUB}}
+    #   shell: bash
+    #   if: steps.set_up.outputs.cache-hit == 'true'
+    #   run: gh cache delete set_up_key
+    # - name: Create Cache
+    #   uses: actions/cache/save@v3
+    #   id: set_up
+    #   with:
+    #     path: ./
+    #     key: set_up_key
     - name: List Cache
       env:
         GH_TOKEN: ${{inputs.GITHUB_TOKEN}}
