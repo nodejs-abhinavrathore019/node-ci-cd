@@ -18,10 +18,17 @@ runs:
         npm run install-1
         echo GITHUB_TOKEN ${{inputs.GITHUB_TOKEN}}
         echo PAT_GITHUB ${{inputs.PAT_GITHUB}}
+    - name: Check Cache
+      uses: actions/cache@v3
+      id: set_up
+      with:
+        path: ./
+        key: set_up_key
     - name: Delete Cache
       env:
         GH_TOKEN: ${{inputs.PAT_GITHUB}}
       shell: bash
+      if: steps.set_up.outputs.cache-hit == 'true'
       run: gh cache delete set_up_key
     - name: Create Cache
       uses: actions/cache/save@v3
