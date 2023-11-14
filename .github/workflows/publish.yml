@@ -9,6 +9,9 @@ jobs:
       issues: write
       pull-requests: write
     uses: "./.github/workflows/verify.yml"
+    secrets:
+      GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      PAT_GITHUB: ${{secrets.PAT_GITHUB}}
   job-release:
     needs: job-build
     runs-on: macos-latest
