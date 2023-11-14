@@ -44,10 +44,11 @@ jobs:
           ls -l -a
           cd ./1-github
           ls -l -a
-      - name: Install Dependencies
-        if: steps.set_up.outputs.cache-hit != 'true'
-        uses: "./.github/actions/setup/"
-        with:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      # - name: Install Dependencies
+      #   if: steps.set_up.outputs.cache-hit != 'true'
+      #   uses: "./.github/actions/setup/"
+      #   with:
+      #     GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      #     PAT_GITHUB: ${{secrets.PAT_GITHUB}}
       - name: Build
         uses: "./.github/actions/build/"

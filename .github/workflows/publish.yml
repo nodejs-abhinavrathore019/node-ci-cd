@@ -4,11 +4,6 @@ on:
   workflow_dispatch:
 jobs:
   job-build:
-    permissions:
-      contents: write
-      issues: write
-      pull-requests: write
-      id-token: write
     uses: "./.github/workflows/verify.yml"
   job-release:
     needs: job-build
@@ -25,8 +20,8 @@ jobs:
         with:
           path: ./
           key: set_up_key
-      - name: Build
-        uses: "./.github/actions/build/"
+      # - name: Build
+      #   uses: "./.github/actions/build/"
       - name: Publish
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
