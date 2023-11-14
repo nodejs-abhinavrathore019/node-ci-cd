@@ -12,7 +12,6 @@ jobs:
       contents: write
       issues: write
       pull-requests: write
-      repository-projects: write
     runs-on: macos-latest
     steps:
       - name: Checkout
@@ -21,6 +20,7 @@ jobs:
         uses: "./.github/actions/setup/"
         with:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          PAT_GITHUB: ${{secrets.PAT_GITHUB}}
   job-build:
     permissions:
       contents: write
