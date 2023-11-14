@@ -20,7 +20,6 @@ runs:
         echo PAT_GITHUB ${{inputs.PAT_GITHUB}}
     - name: Check Cache
       uses: actions/cache@v3
-      id: set_up
       with:
         path: ./
         key: set_up_key
