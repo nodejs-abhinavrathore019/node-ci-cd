@@ -3,7 +3,7 @@ setup -> build -> lint -> test -> tag_release
 - using single job [DONE]
 - using code splitting using actions [DONE]
 - can we share node setup using artifacts [DONE]
-- using caching for setup
+- using caching for setup [DONE]
 - using docker container
 - re-useable workflows [DONE]
     - WF1 => setup -> build -> lint -> test
