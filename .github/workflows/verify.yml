@@ -12,6 +12,7 @@ jobs:
       contents: write
       issues: write
       pull-requests: write
+      repository-projects: write
     runs-on: macos-latest
     steps:
       - name: Checkout

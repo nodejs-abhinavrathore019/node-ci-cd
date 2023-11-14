@@ -14,11 +14,11 @@ runs:
       run: |
         npm run install-1
         echo ${{inputs.GITHUB_TOKEN}}
-    # - name: Delete Cache
-    #   env:
-    #     GH_TOKEN: ${{inputs.GITHUB_TOKEN}}
-    #   shell: bash
-    #   run: gh cache delete set_up_key
+    - name: Delete Cache
+      env:
+        GH_TOKEN: ${{inputs.GITHUB_TOKEN}}
+      shell: bash
+      run: gh cache delete set_up_key
     - name: Create Cache
       uses: actions/cache/save@v3
       id: set_up
