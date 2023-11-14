@@ -16,7 +16,8 @@ runs:
       shell: bash
       run: |
         npm run install-1
-        echo ${{inputs.GITHUB_TOKEN}}
+        echo GITHUB_TOKEN ${{inputs.GITHUB_TOKEN}}
+        echo PAT_GITHUB ${{inputs.PAT_GITHUB}}
     - name: Delete Cache
       env:
         GH_TOKEN: ${{inputs.PAT_GITHUB}}
