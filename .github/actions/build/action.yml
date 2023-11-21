@@ -22,5 +22,5 @@ runs:
     - name: Build and push
       uses: docker/build-push-action@v5
       with:
-        push: true
-        tags: deltacap019/app:1.0.1
+        push: false
+        tags: deltacap019/app:1.0.2
