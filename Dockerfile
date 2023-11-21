@@ -9,9 +9,9 @@ WORKDIR /app
 ## in these files
 
 # copy root pacakge.json
-COPY package.json ./
+COPY ./package.json /app/
 
-# copy root 1-github package.json
+# copy 1-github package.json
 COPY ./1-github/package.json /app/1-github/
 # copy content to container working directory
 
@@ -27,8 +27,21 @@ WORKDIR '/app/1-github'
 # Install dependencies
 RUN npm install
 
-# build and start server.
+# lint
+RUN npm run lint:fix
+# lint check
+RUN npm run lint:check
+# npm run test
+RUN npm run test
+# build server.
 RUN npm run build
+
+# start server 
+# CMD runs when we start container
+CMD [ "npm", "run", "start" ]
+
+# # Go to app
+# WORKDIR '/app/'
 
 # Define PORT for container
 EXPOSE 5000

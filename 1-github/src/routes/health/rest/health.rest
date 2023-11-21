@@ -1,2 +1,2 @@
 
-GET {{host}}/{{prefix}}/routes HTTP/1.1
+GET {{{{http-host}}}}/{{prefix}}/health HTTP/1.1

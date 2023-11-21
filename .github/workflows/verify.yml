@@ -11,42 +11,30 @@ on:
         required: true
         description: "PAT for Github"
 jobs:
-  job-setup:
-    permissions:
-      contents: write
-      issues: write
-      pull-requests: write
-    runs-on: macos-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup
-        uses: "./.github/actions/setup/"
-        with:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-          PAT_GITHUB: ${{secrets.PAT_GITHUB}}
+  # job-setup:
+  #   permissions:
+  #     contents: write
+  #     issues: write
+  #     pull-requests: write
+  #   runs-on: macos-latest
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v4
+  #     - name: Setup
+  #       uses: "./.github/actions/setup/"
+  #       with:
+  #         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+  #         PAT_GITHUB: ${{secrets.PAT_GITHUB}}
   job-build:
     permissions:
       contents: write
       issues: write
       pull-requests: write
-    needs: job-setup
     strategy:
       matrix:
         node_version: [19.x, 20.x]
         os: [macos-latest, ubuntu-latest] ## not using env.OS_TYPES as env context is not available at job level.
     runs-on: ${{matrix.os}}
     steps:
-      - name: Restore Cache
-        uses: actions/cache/restore@v3
-        id: set_up
-        with:
-          path: ./
-          key: set_up_key
-      - name: List
-        run: |
-          ls -l -a
-          cd ./1-github
-          ls -l -a
       - name: Build
         uses: "./.github/actions/build/"

@@ -1,29 +1,19 @@
-name: Build Project
-description: lints project, run tests, and build project
+name: Build Docker Image
+description: builds docker image which lints project, run tests, and build project
 runs:
   using: composite
   steps:
-    - name: Reset GitHub Auth
-      shell: bash
-      run: |
-        cat ./.git/config
-        git config --unset-all http.https://github.com/.extraheader
-        cat ./.git/config
-    - name: Lint Fix
-      working-directory: ./1-github
-      shell: bash
-      run: | # expression aids in multiline yaml string
-        echo fixing lint
-        npm run lint:fix
-    - name: Lint Check
-      working-directory: ./1-github
-      shell: bash
-      run: npm run lint:check
-    - name: Test
-      working-directory: ./1-github
-      shell: bash
-      run: npm run test
-    - name: Build
-      working-directory: ./1-github
-      shell: bash
-      run: npm run build
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+      with:
+        buildkitd-flags: --debug
+    - name: Login to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - name: Build and push
+      uses: docker/build-push-action@v5
+      with:
+        push: true
+        tags: deltacap019/app:latest
