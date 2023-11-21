@@ -22,9 +22,14 @@ runs:
       with:
         username: ${{ inputs.DOCKERHUB_USERNAME }}
         password: ${{ inputs.DOCKERHUB_TOKEN }}
-    - name: run
+    - if: inputs.PUBLISH == 'true'
+      name: Build and push 1
       shell: bash
-      run: echo ${{inputs.PUBLISH}}
+      run: echo publish true
+    - if: inputs.PUBLISH == 'false'
+      name: Build and push 2
+      shell: bash
+      run: echo publish false
     # - if: inputs.PUBLISH == 'true'
     #   name: Build and push
     #   uses: docker/build-push-action@v5
