@@ -23,4 +23,4 @@ runs:
       uses: docker/build-push-action@v5
       with:
         push: true
-        tags: deltacap019/app:1.0.0
+        tags: deltacap019/app:1.0.1
