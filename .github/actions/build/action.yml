@@ -25,4 +25,4 @@ runs:
         outputs: type=docker,dest=/tmp/ci_cd_docker_image.tar
     - name: Push
       shell: bash
-      run: docker push /tmp/ci_cd_docker_image.tar
+      run: docker image push /tmp/ci_cd_docker_image.tar
