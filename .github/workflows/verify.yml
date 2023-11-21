@@ -36,5 +36,7 @@ jobs:
         os: [macos-latest, ubuntu-latest] ## not using env.OS_TYPES as env context is not available at job level.
     runs-on: ${{matrix.os}}
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
       - name: Build
         uses: "./.github/actions/build/"
