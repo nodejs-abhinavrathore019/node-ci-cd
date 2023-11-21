@@ -23,16 +23,11 @@ runs:
         username: ${{ inputs.DOCKERHUB_USERNAME }}
         password: ${{ inputs.DOCKERHUB_TOKEN }}
     - if: inputs.PUBLISH == 'true'
-      name: Build and push 1
-      shell: bash
-      run: echo publish true
+      name: Build Docker Image
+      uses: docker/build-push-action@v5
     - if: inputs.PUBLISH == 'false'
-      name: Build and push 2
-      shell: bash
-      run: echo publish false
-    # - if: inputs.PUBLISH == 'true'
-    #   name: Build and push
-    #   uses: docker/build-push-action@v5
-    #   with:
-    #     push: false
-    #     tags: deltacap019/app:1.0.2
+      name: Build and Push Docker Image
+      uses: docker/build-push-action@v5
+      with:
+        push: false
+        tags: deltacap019/app:1.0.2
