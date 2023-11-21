@@ -10,6 +10,9 @@ inputs:
   PUBLISH:
     required: false
     description: "publish image if set to true"
+  PUBLISH_TAG:
+    required: false
+    description: "tag for the published image"
 runs:
   using: composite
   steps:
@@ -22,12 +25,12 @@ runs:
       with:
         username: ${{ inputs.DOCKERHUB_USERNAME }}
         password: ${{ inputs.DOCKERHUB_TOKEN }}
-    - if: inputs.PUBLISH == 'true'
+    - if: inputs.PUBLISH == 'false'
       name: Build Docker Image
       uses: docker/build-push-action@v5
-    - if: inputs.PUBLISH == 'false'
+    - if: inputs.PUBLISH == 'true'
       name: Build and Push Docker Image
       uses: docker/build-push-action@v5
       with:
         push: false
-        tags: deltacap019/app:1.0.2
+        tags: deltacap019/ci-cd:${{inputs.PUBLISH_TAG}}
