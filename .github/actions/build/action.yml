@@ -19,9 +19,10 @@ runs:
       with:
         username: ${{ inputs.DOCKERHUB_USERNAME }}
         password: ${{ inputs.DOCKERHUB_TOKEN }}
-    - name: Build and push
-      id: build_push
+    - name: Build
       uses: docker/build-push-action@v5
-    - name: path
+      with:
+        outputs: type=docker,dest=/tmp/ci_cd_docker_image.tar
+    - name: Push
       shell: bash
-      run: echo ${{steps.build_push.outputs.metadata}}
+      run: docker push /tmp/ci_cd_docker_image.tar
