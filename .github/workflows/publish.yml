@@ -3,17 +3,7 @@ name: Publish
 on:
   workflow_dispatch:
 jobs:
-  job-build:
-    permissions:
-      contents: write
-      issues: write
-      pull-requests: write
-    uses: "./.github/workflows/verify.yml"
-    secrets:
-      DOCKERHUB_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
-      DOCKERHUB_TOKEN: ${{secrets.DOCKERHUB_TOKEN}}
   job-release:
-    needs: job-build
     runs-on: macos-latest
     permissions:
       contents: write
@@ -21,10 +11,14 @@ jobs:
       pull-requests: write
       id-token: write
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Build
+      # - name: Checkout
+      #   uses: actions/checkout@v4
+      - name: Publish Docker Image
         uses: "./.github/actions/build/"
+        with:
+          DOCKERHUB_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
+          DOCKERHUB_TOKEN: ${{secrets.DOCKERHUB_TOKEN}}
+          PUBLISH: false
       # - name: Publish Tag
       #   env:
       #     GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
