@@ -10,7 +10,8 @@ jobs:
       pull-requests: write
     uses: "./.github/workflows/verify.yml"
     secrets:
-      PAT_GITHUB: ${{secrets.PAT_GITHUB}}
+      DOCKERHUB_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
+      DOCKERHUB_TOKEN: ${{secrets.DOCKERHUB_TOKEN}}
   job-release:
     needs: job-build
     runs-on: macos-latest
@@ -20,15 +21,15 @@ jobs:
       pull-requests: write
       id-token: write
     steps:
-      - name: Restore Cache
-        uses: actions/cache/restore@v3
-        id: set_up
-        with:
-          path: ./
-          key: set_up_key
+      - name: Checkout
+        uses: actions/checkout@v4
       - name: Build
         uses: "./.github/actions/build/"
-      - name: Publish
+      - name: Publish Tag
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        run: npx semantic-release
+      - name: Publish Docker Image
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         run: npx semantic-release

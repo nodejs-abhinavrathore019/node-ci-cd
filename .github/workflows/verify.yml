@@ -7,24 +7,13 @@ on:
     branches: [main]
   workflow_call:
     secrets:
-      PAT_GITHUB:
+      DOCKERHUB_USERNAME:
         required: true
-        description: "PAT for Github"
+        description: "docker username"
+      DOCKERHUB_TOKEN:
+        required: true
+        description: "docker token"
 jobs:
-  # job-setup:
-  #   permissions:
-  #     contents: write
-  #     issues: write
-  #     pull-requests: write
-  #   runs-on: macos-latest
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v4
-  #     - name: Setup
-  #       uses: "./.github/actions/setup/"
-  #       with:
-  #         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-  #         PAT_GITHUB: ${{secrets.PAT_GITHUB}}
   job-build:
     permissions:
       contents: write
