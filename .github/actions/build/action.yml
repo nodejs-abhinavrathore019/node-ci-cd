@@ -7,6 +7,9 @@ inputs:
   DOCKERHUB_TOKEN:
     required: true
     description: "docker token"
+  PUBLISH:
+    required: false
+    description: "publish image if set to true"
 runs:
   using: composite
   steps:
@@ -19,10 +22,12 @@ runs:
       with:
         username: ${{ inputs.DOCKERHUB_USERNAME }}
         password: ${{ inputs.DOCKERHUB_TOKEN }}
-    - name: Build
-      uses: docker/build-push-action@v5
-      with:
-        outputs: type=docker,dest=/tmp/ci_cd_docker_image.tar
-    - name: Push
+    - name: run
       shell: bash
-      run: docker image push /tmp/ci_cd_docker_image.tar
+      run: echo ${{inputs.PUBLISH}}
+    # - if: inputs.PUBLISH == 'true'
+    #   name: Build and push
+    #   uses: docker/build-push-action@v5
+    #   with:
+    #     push: false
+    #     tags: deltacap019/app:1.0.2
