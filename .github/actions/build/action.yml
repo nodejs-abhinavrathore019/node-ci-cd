@@ -21,6 +21,6 @@ runs:
         password: ${{ inputs.DOCKERHUB_TOKEN }}
     - name: Build and push
       uses: docker/build-push-action@v5
-      with:
-        push: false
-        tags: deltacap019/app:1.0.2
+      # with:
+      #   push: false
+      #   tags: deltacap019/app:1.0.2
