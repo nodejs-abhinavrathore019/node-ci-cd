@@ -24,4 +24,4 @@ runs:
       uses: docker/build-push-action@v5
     - name: path
       shell: bash
-      run: echo ${{steps.build_push.outputs.imageid}}
+      run: echo ${{steps.build_push.outputs.metadata}}
