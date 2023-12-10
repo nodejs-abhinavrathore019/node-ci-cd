@@ -1,0 +1,27 @@
+# Builds everytime code is merged in main branch
+name: Verify Build
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  job-build:
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+    strategy:
+      matrix:
+        node_version: [19.x, 20.x]
+        os: [ubuntu-latest] ## not using env.OS_TYPES as env context is not available at job level.
+    runs-on: ${{matrix.os}}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build
+        uses: "./.github/actions/build/"
+        with:
+          DOCKERHUB_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
+          DOCKERHUB_TOKEN: ${{secrets.DOCKERHUB_TOKEN}}
+          PUBLISH: false

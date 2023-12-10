@@ -1,0 +1,20 @@
+# .github/release.yml
+# template is used when we publish release on github releases
+changelog:
+  exclude:
+    labels:
+      - ignore-for-release
+    authors:
+      - deltacap019
+  categories:
+    - title: Breaking Changes 🛠
+      labels:
+        - Semver-Major
+        - breaking-change
+    - title: Exciting New Features 🎉
+      labels:
+        - Semver-Minor
+        - enhancement
+    - title: Other Changes
+      labels:
+        - "*"

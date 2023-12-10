@@ -1,0 +1,29 @@
+# creates release tags after successful build for now.
+name: Publish
+on:
+  workflow_dispatch:
+jobs:
+  job-build:
+    uses: "./.github/workflows/verify.yml"
+  job-release:
+    needs: job-build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      id-token: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Node.js
+        uses: actions/setup-node@v3
+      - name: Install packages
+        run: npm run install-1
+      - name: Build
+        working-directory: ./1-github
+        run: npm run build
+      - name: Publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release

@@ -1,0 +1,31 @@
+# creates release tags after successful build for now.
+name: Publish
+on:
+  workflow_dispatch:
+jobs:
+  job-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      id-token: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - uses: codfish/semantic-release-action@v3
+        id: semantic
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: echo ${{ steps.semantic.outputs.release-version }}
+      - name: Publish Docker Image
+        uses: "./.github/actions/build/"
+        with:
+          DOCKERHUB_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
+          DOCKERHUB_TOKEN: ${{secrets.DOCKERHUB_TOKEN}}
+          PUBLISH: true
+          PUBLISH_TAG: ${{steps.semantic.outputs.release-version}}
+      - name: Publish Tag
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        run: npx semantic-release

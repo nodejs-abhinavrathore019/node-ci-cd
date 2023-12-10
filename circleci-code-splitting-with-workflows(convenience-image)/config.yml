@@ -1,0 +1,60 @@
+version: 2.1
+jobs:
+  job-verify:
+    parameters:
+      node-version:
+        type: string
+    docker:
+      - image: cimg/node:<<parameters.node-version>>
+    steps:
+      - checkout
+      - run:
+          name: Install Packages
+          working_directory: ./2-circle-ci
+          command: npm install
+      - run:
+          name: Lint Fix
+          working_directory: ./2-circle-ci
+          command: npm run lint:fix
+      - run:
+          name: Lint Check
+          working_directory: ./2-circle-ci
+          command: npm run lint:check
+      - run:
+          name: Test
+          working_directory: ./2-circle-ci
+          command: npm run test
+      - run:
+          name: Build
+          working_directory: ./2-circle-ci
+          command: npm run build
+  job-publish:
+    docker:
+      - image: cimg/node:20.6.1
+    steps:
+      - checkout
+      - run:
+          name: Install Packages
+          command: npm install
+      - run:
+          command: echo  ${GH_TOKEN}
+      - run:
+          command: npx semantic-release
+
+workflows:
+  verify:
+    jobs:
+      - job-verify:
+          matrix:
+            parameters:
+              node-version: ["19.7", "20.10"]
+  publish:
+    jobs:
+      - job-verify:
+          type: approval
+          matrix:
+            parameters:
+              node-version: ["19.7", "20.10"]
+      - job-publish:
+          requires:
+            - job-verify

@@ -1,0 +1,21 @@
+name: Setup Project
+description: checks-out project, setup Node.js, and install packages
+runs:
+  using: composite
+  steps:
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+    - name: Install Packages
+      shell: bash
+      run: npm run install-1
+    - name: Create zipped Artifact
+      shell: bash
+      run: |
+        rm -rf my_artifact.zip
+        zip -r --symlinks my_artifact.zip ./
+    - name: Create Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: my-artifact
+        path: |
+          my_artifact.zip

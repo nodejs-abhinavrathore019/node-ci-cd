@@ -1,0 +1,111 @@
+version: 2.1
+
+jobs:
+  job-verify:
+    parameters:
+      node-version:
+        type: string
+    docker:
+      - image: cimg/node:<<parameters.node-version>>
+    steps:
+      - restore_cache:
+          keys:
+            - "cached_project"
+      - run:
+          name: List after restore cache ~/
+          command: |
+            echo ~/
+            ls -lha ~/
+      - run:
+          name: List after restore cache ./
+          command: |
+            echo ./
+            ls -lha ./
+      - checkout
+      - run:
+          name: Install
+          working_directory: ./2-circle-ci
+          command: npm install
+      - run:
+          name: Lint fix
+          working_directory: ./2-circle-ci
+          command: npm run lint:fix
+      - run:
+          name: Lint check
+          working_directory: ./2-circle-ci
+          command: npm run lint:check
+      - run:
+          name: Build
+          working_directory: ./2-circle-ci
+          command: npm run build
+      - run:
+          name: List before save cache ~/
+          command: |
+            echo ~/
+            ls -lha ~/
+      - run:
+          name: List before save cache ./
+          command: |
+            echo ./
+            ls -lha ./
+      - save_cache:
+          key: "cached_project"
+          paths:
+            - "~/project"
+            - ~/.ssh
+
+  job-publish:
+    docker:
+      - image: cimg/node:20.6.1
+    steps:
+      - run:
+          name: Before restore cache ~/
+          command: |
+            echo ~/
+            ls -lha ~/
+      - run:
+          name: Before restore cache ./
+          command: |
+            echo ./
+            ls -lha ./
+      - restore_cache:
+          keys:
+            - "cached_project"
+      - run:
+          name: After restore cache ~/
+          command: |
+            echo ~/
+            ls -lha ~/
+      - run:
+          name: After restore cache ./
+          command: |
+            echo ./
+            ls -lha ./
+      - run:
+          name: Install Packages
+          command: npm install
+      - run:
+          command: echo  ${GH_TOKEN}
+      - run:
+          command: npx semantic-release
+
+workflows:
+  verify:
+    jobs:
+      - job-verify:
+          matrix:
+            parameters:
+              node-version: ["20.10"]
+  publish:
+    jobs:
+      - approve-publish:
+          type: approval
+      - job-verify:
+          matrix:
+            parameters:
+              node-version: ["20.10"]
+          requires:
+            - approve-publish
+      - job-publish:
+          requires:
+            - job-verify

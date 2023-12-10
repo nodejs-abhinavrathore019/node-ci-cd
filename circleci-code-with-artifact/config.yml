@@ -1,0 +1,89 @@
+version: 2.1
+
+jobs:
+  job-verify:
+    parameters:
+      node-version:
+        type: string
+    docker:
+      - image: cimg/node:<<parameters.node-version>>
+    steps:
+      - checkout
+      - run:
+          name: Install
+          working_directory: ./2-circle-ci
+          command: npm install
+      - run:
+          name: Lint fix
+          working_directory: ./2-circle-ci
+          command: npm run lint:fix
+      - run:
+          name: Lint check
+          working_directory: ./2-circle-ci
+          command: npm run lint:check
+      - run:
+          name: Build
+          working_directory: ./2-circle-ci
+          command: npm run build
+
+  job-publish:
+    docker:
+      - image: cimg/node:20.6.1
+    steps:
+      - checkout
+      - run:
+          name: Install
+          working_directory: ./2-circle-ci
+          command: npm install
+      - run:
+          name: Build
+          working_directory: ./2-circle-ci
+          command: npm run build
+      - run:
+          name: dist folder
+          command: ls -lah -R ./2-circle-ci/dist
+      - run:
+          name: Create zipped Artifact
+          command: zip -r --symlinks my_artifact.zip ./2-circle-ci/dist
+      - run:
+          name: After zip ~/
+          command: |
+            echo ~/
+            ls -lha ~/
+      - run:
+          name: After zip ./
+          command: |
+            echo ./
+            ls -lha ./
+      - store_artifacts:
+          path: "my_artifact.zip"
+      - run:
+          name: Install Packages
+          command: npm install
+      - run:
+          command: echo  ${GH_TOKEN}
+      - run:
+          name: Release Tag
+          command: |
+            npx semantic-release
+            npm pkg get releaseTag
+workflows:
+  verify:
+    jobs:
+      - job-verify:
+          matrix:
+            parameters:
+              node-version: ["20.10"]
+  publish:
+    jobs:
+      - approve-publish:
+          type: approval
+      - job-verify:
+          matrix:
+            parameters:
+              node-version: ["20.10"]
+          requires:
+            - approve-publish
+      - job-publish:
+          requires:
+            - job-verify

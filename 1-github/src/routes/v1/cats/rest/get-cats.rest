@@ -1,0 +1,2 @@
+
+GET {{http-host}}/{{prefix}}/{{v1}}/cats HTTP/1.1

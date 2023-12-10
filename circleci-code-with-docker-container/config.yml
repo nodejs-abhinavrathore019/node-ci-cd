@@ -1,0 +1,68 @@
+version: 2.1
+
+jobs:
+  job-verify:
+    parameters:
+      node-version:
+        type: string
+    docker:
+      - image: cimg/node:<<parameters.node-version>>
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: false
+      - run:
+          name: Build docker image
+          command: |
+            docker login -u="${DOCKERHUB_USERNAME}" -p="${DOCKERHUB_TOKEN}"
+            docker build ./ -t tag
+
+  job-publish:
+    docker:
+      - image: cimg/node:20.6.1
+    steps:
+      - checkout
+      - run:
+          name: Install Packages
+          command: npm install
+      - run:
+          name: Secrets
+          command: |
+            echo  ${GH_TOKEN}
+            echo  ${DOCKERHUB_USERNAME}
+            echo  ${DOCKERHUB_TOKEN}
+      - run:
+          name: Release Tag
+          command: |
+            npx semantic-release
+            echo 'export RELEASE_TAG=`npm pkg get releaseTag`'>> "$BASH_ENV"
+      - setup_remote_docker:
+          docker_layer_caching: false
+      - run:
+          name: Publish docker image
+          command: |
+            echo $RELEASE_TAG
+            echo ${RELEASE_TAG//\"/}
+            docker login -u="${DOCKERHUB_USERNAME}" -p="${DOCKERHUB_TOKEN}"
+            docker build ./ -t deltacap019/ci-cd:${RELEASE_TAG//\"/}
+            docker push deltacap019/ci-cd:${RELEASE_TAG//\"/}
+workflows:
+  verify:
+    jobs:
+      - job-verify:
+          matrix:
+            parameters:
+              node-version: ["20.10"]
+  publish:
+    jobs:
+      - approve-publish:
+          type: approval
+      - job-verify:
+          matrix:
+            parameters:
+              node-version: ["20.10"]
+          requires:
+            - approve-publish
+      - job-publish:
+          requires:
+            - job-verify

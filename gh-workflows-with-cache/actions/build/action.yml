@@ -1,0 +1,29 @@
+name: Build Project
+description: lints project, run tests, and build project
+runs:
+  using: composite
+  steps:
+    - name: Reset GitHub Auth
+      shell: bash
+      run: |
+        cat ./.git/config
+        git config --unset-all http.https://github.com/.extraheader
+        cat ./.git/config
+    - name: Lint Fix
+      working-directory: ./1-github
+      shell: bash
+      run: | # expression aids in multiline yaml string
+        echo fixing lint
+        npm run lint:fix
+    - name: Lint Check
+      working-directory: ./1-github
+      shell: bash
+      run: npm run lint:check
+    - name: Test
+      working-directory: ./1-github
+      shell: bash
+      run: npm run test
+    - name: Build
+      working-directory: ./1-github
+      shell: bash
+      run: npm run build
